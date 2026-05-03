@@ -61,6 +61,10 @@ coverage/
 *.seed
 *.pid.lock
 
+# Vercel
+.vercel
+.vercel.json
+
 # MongoDB
 data/
 *.db
