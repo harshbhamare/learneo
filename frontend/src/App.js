@@ -6,6 +6,9 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Login from './pages/Login';
 import Register from './pages/Register';
 
+// Public join page
+import JoinRoom from './pages/student/JoinRoom';
+
 // Layouts
 import Layout from './components/Layout';
 
@@ -22,6 +25,7 @@ import ModuleBuilder from './pages/faculty/ModuleBuilder';
 import ModuleList from './pages/faculty/ModuleList';
 import QuizManager from './pages/faculty/QuizManager';
 import FacultyResults from './pages/faculty/FacultyResults';
+import Rooms from './pages/faculty/Rooms';
 
 // Student pages
 import StudentDashboard from './pages/student/StudentDashboard';
@@ -50,8 +54,11 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
+          {/* Public routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/join" element={<JoinRoom />} />
+          <Route path="/join/:code" element={<JoinRoom />} />
           <Route path="/" element={<RoleRedirect />} />
 
           {/* Admin routes */}
@@ -70,6 +77,7 @@ function App() {
             <Route path="modules/new" element={<ModuleBuilder />} />
             <Route path="modules/:id/edit" element={<ModuleBuilder />} />
             <Route path="modules/:id/quiz" element={<QuizManager />} />
+            <Route path="rooms" element={<Rooms />} />
             <Route path="results" element={<FacultyResults />} />
           </Route>
 

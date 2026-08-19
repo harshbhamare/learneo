@@ -7,10 +7,15 @@ const {
 } = require('../controllers/quizController');
 
 router.use(protect);
+
+// ── Specific routes MUST come before param routes ──────────────────────────
 router.get('/module/:moduleId', getQuizzesByModule);
+
+router.post('/generate/:moduleId', authorize('faculty', 'admin'), generateQuiz);
+
+// ── Param routes ───────────────────────────────────────────────────────────
 router.get('/:id', getQuiz);
 router.post('/', authorize('faculty', 'admin'), createQuiz);
-router.post('/generate/:moduleId', authorize('faculty', 'admin'), generateQuiz);
 router.put('/:id', authorize('faculty', 'admin'), updateQuiz);
 router.put('/:id/publish', authorize('faculty', 'admin'), publishQuiz);
 

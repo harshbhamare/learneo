@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { HiMail, HiLockClosed, HiEye, HiEyeOff, HiAcademicCap, HiSparkles, HiUser, HiUserGroup, HiShieldCheck } from 'react-icons/hi';
+import { HiMail, HiLockClosed, HiEye, HiEyeOff, HiAcademicCap, HiSparkles, HiUser, HiUserGroup } from 'react-icons/hi';
 
 const ROLES = [
   { value: 'student', label: 'Student', icon: HiAcademicCap },
   { value: 'faculty', label: 'Faculty', icon: HiUserGroup },
-  { value: 'admin',   label: 'Admin',   icon: HiShieldCheck },
+  // Admin accounts can only be created by an existing admin via the admin panel
 ];
 
 const Register = () => {

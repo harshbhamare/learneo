@@ -1,21 +1,22 @@
 import React from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { 
-  HiChartBar, HiUsers, HiUpload, HiFolder, HiBookOpen, 
-  HiTrendingUp, HiHome, HiAcademicCap, HiLogout 
+import {
+  HiChartBar, HiUsers, HiUpload, HiFolder, HiBookOpen,
+  HiTrendingUp, HiHome, HiAcademicCap, HiLogout, HiCollection,
 } from 'react-icons/hi';
 
 const navConfig = {
   admin: [
-    { to: '/admin',       icon: HiChartBar, label: 'Dashboard', end: true },
-    { to: '/admin/users', icon: HiUsers,     label: 'Users' },
+    { to: '/admin',       icon: HiChartBar,    label: 'Dashboard', end: true },
+    { to: '/admin/users', icon: HiUsers,        label: 'Users' },
   ],
   faculty: [
-    { to: '/faculty',         icon: HiChartBar,    label: 'Dashboard',      end: true },
+    { to: '/faculty',         icon: HiChartBar,    label: 'Dashboard',     end: true },
     { to: '/faculty/upload',  icon: HiUpload,      label: 'Upload Content' },
     { to: '/faculty/content', icon: HiFolder,      label: 'My Content' },
     { to: '/faculty/modules', icon: HiBookOpen,    label: 'Modules' },
+    { to: '/faculty/rooms',   icon: HiCollection,  label: 'Rooms' },
     { to: '/faculty/results', icon: HiTrendingUp,  label: 'Results' },
   ],
   student: [
@@ -29,14 +30,11 @@ const Layout = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
-  };
+  const handleLogout = () => { logout(); navigate('/login'); };
 
   const links = navConfig[user?.role] || [];
   const initials = user?.name
-    ? user.name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2)
+    ? user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
     : '?';
 
   return (
@@ -44,9 +42,7 @@ const Layout = () => {
       <aside className="sidebar">
         {/* Logo */}
         <div className="sidebar-logo">
-          <div className="sidebar-logo-icon">
-            <HiAcademicCap />
-          </div>
+          <div className="sidebar-logo-icon"><HiAcademicCap /></div>
           <div className="sidebar-logo-text">
             AI Learning
             <span>Platform</span>
@@ -56,7 +52,7 @@ const Layout = () => {
         {/* Nav */}
         <nav className="sidebar-nav">
           <div className="sidebar-section-label">Navigation</div>
-          {links.map((link) => {
+          {links.map(link => {
             const Icon = link.icon;
             return (
               <NavLink
@@ -72,7 +68,7 @@ const Layout = () => {
           })}
         </nav>
 
-        {/* Footer / user */}
+        {/* Footer */}
         <div className="sidebar-footer">
           <div className="sidebar-user">
             <div className="sidebar-avatar">{initials}</div>
@@ -82,8 +78,7 @@ const Layout = () => {
             </div>
           </div>
           <button className="btn-logout" onClick={handleLogout}>
-            <HiLogout style={{ marginRight: '0.25rem' }} />
-            Sign out
+            <HiLogout style={{ marginRight: '0.25rem' }} /> Sign out
           </button>
         </div>
       </aside>

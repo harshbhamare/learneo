@@ -9,14 +9,15 @@ const protect = async (req, res, next) => {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = await User.findById(decoded.id).select('-password');
       if (!req.user || !req.user.isActive) {
-        return res.status(401).json({ message: 'Not authorized, account inactive' });
+        return res.status(401).json({ message: 'Not authorized.' });
       }
       next();
-    } catch (error) {
-      return res.status(401).json({ message: 'Not authorized, token failed' });
+    } catch {
+      // Never leak internal error details to client
+      return res.status(401).json({ message: 'Not authorized, token invalid.' });
     }
   } else {
-    return res.status(401).json({ message: 'Not authorized, no token' });
+    return res.status(401).json({ message: 'Not authorized, no token.' });
   }
 };
 

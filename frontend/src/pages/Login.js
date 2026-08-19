@@ -17,6 +17,12 @@ const Login = () => {
     setLoading(true);
     try {
       const user = await login(form.email, form.password);
+      // If student scanned a QR code before logging in, redirect to join page
+      const pendingCode = sessionStorage.getItem('pendingRoomCode');
+      if (pendingCode && user.role === 'student') {
+        navigate(`/join/${pendingCode}`);
+        return;
+      }
       if (user.role === 'admin') navigate('/admin');
       else if (user.role === 'faculty') navigate('/faculty');
       else navigate('/student');
